@@ -9,10 +9,8 @@ int main(void){
     }
     printf("file pointer: %p \n",fp);
     char buf[]="Let's go!\n";
-    size_t size=sizeof(buf);
-    size_t count=size/sizeof(buf[0])-1;
-    if(fwrite(buf,size,count,fp)<count){
-        perror("fwrite() error!");
+    if(fprintf(fp,"%s",buf)<0){
+        perror("fprintf() error!");
     }
     fclose(fp);
     return 0;
