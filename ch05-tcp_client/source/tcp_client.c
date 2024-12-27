@@ -5,9 +5,8 @@
 #include<arpa/inet.h>
 #include<sys/socket.h>
 
-#define BUF_SIZE
+#define BUF_SIZE 1024
 void error_handling(char const* message);
-int string_length(char str[],int size);
 int main(int argc,char* argv[]){
     int sock;
     struct sockaddr_in serv_addr;
@@ -32,6 +31,10 @@ int main(int argc,char* argv[]){
     }
     memset(&msg_buf[0],0,BUF_SIZE);
     printf("Input message: ");
+    //实现思路:
+    //首先先通过传输一个文件路径名,来查询文件是否存在,如果存在就返回文件字节数,
+    //否则返回-1
+    //然后使用一个buf分块来接收文件内容
     str_len=string_length(msg_buf,BUF_SIZE);
     write(sock,msg_buf,str_len(msg_buf,BUF_SIZE));
     str_len=read(sock,message,sizeof(message)-1);
@@ -46,15 +49,4 @@ void error_handling(char const* message){
     fputs(message,stderr);
     fputc('\n',stderr);
     exit(1);
-}
-int string_length(char str[],int size){
-    int result=0;
-    int index;
-    for(index=0;index<size;++index){
-        if(str[index]=='\0'){
-            break;
-        }
-        ++result;
-    }
-    return result;
 }
