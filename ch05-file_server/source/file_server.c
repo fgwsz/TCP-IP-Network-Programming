@@ -47,13 +47,21 @@ int main(int argc,char* argv[]){
         printf("File{%s} not found!\n",file_path);
         close(clnt_sock);
         close(serv_sock);
+        return -1;
     }
     //边读取文件内容,边传递文件内容到客户端
     char buf[BUF_SIZE];
-    memset(&file_path[0],0,sizeof(buf));
-    size_t buf_len=0;
+    memset(buf,0,sizeof(buf));
+    long long buf_len=0;
     while((buf_len=fread(buf,sizeof(char),sizeof(buf),fp))>0){
-        write(clnt_sock,buf,buf_len);
+        if(write(clnt_sock,buf,buf_len)!=buf_len){
+            error_handling("write() error!");
+        }
+    }
+    if(ferror(fp)){
+        error_handling("fread() error!");
+    }else if(feof(fp)){
+        printf("File transfer successfully.\n");
     }
     fclose(fp);
     close(clnt_sock);
