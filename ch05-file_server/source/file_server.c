@@ -33,25 +33,29 @@ int main(int argc,char* argv[]){
     if(clnt_sock==-1){
         error_handling("accept() error!");
     }
-    char msg_buf[BUF_SIZE];
-    memset(&msg_buf[0],0,sizeof(msg_buf));
-    uint32_t msg_len=read(clnt_sock,msg_buf,sizeof(msg_buf));
-    if(msg_len==-1){
+    //接收客户端发送来的文件路径
+    char file_path[BUF_SIZE];
+    memset(&file_path[0],0,sizeof(file_path));
+    size_t path_len=read(clnt_sock,file_path,sizeof(file_path));
+    if(path_len==-1){
         error_handling("read() error!");
     }
-    printf("Message from client : {length:%d,string:%s} \n",(uint32_t)msg_buf[0],&msg_buf[sizeof(uint32_t)]);
-
-    //传递一个字符串给客户端
-    //协议:
-    //[字符串长度(不包含末尾的'\0')][字符串]
-    //|                            |
-    //\       占用4个字节          /
-    char string[]="Hi,I'm Server.";
-    uint32_t string_length=(uint32_t)(sizeof(string)-1);
-    memset(&msg_buf[0],0,sizeof(msg_buf));
-    *((uint32_t*)&msg_buf[0])=string_length;
-    memmove(&msg_buf[0+sizeof(uint32_t)],string,string_length);
-    write(clnt_sock,msg_buf,sizeof(uint32_t)+string_length);
+    printf("Message from client:{file path:%s}\n",file_path);
+    //检查文件路径是否有效
+    FILE* fp=fopen(file_path,"rb");
+    if(!fp){
+        printf("File{%s} not found!\n",file_path);
+        close(clnt_sock);
+        close(serv_sock);
+    }
+    //边读取文件内容,边传递文件内容到客户端
+    char buf[BUF_SIZE];
+    memset(&file_path[0],0,sizeof(buf));
+    size_t buf_len=0;
+    while((buf_len=fread(buf,sizeof(char),sizeof(buf),fp))>0){
+        write(clnt_sock,buf,buf_len);
+    }
+    fclose(fp);
     close(clnt_sock);
     close(serv_sock);
     return 0;
