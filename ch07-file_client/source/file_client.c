@@ -40,6 +40,11 @@ int main(int argc,char* argv[]){
             error_handling("fwrite() error!");
         }
     }
+    puts("Received file data");
+    if(write(sd,"Thank you",10)==-1){
+        error_handling("write() error!");
+    }
+    fclose(fp);
     close(sd);
     return 0;
 }
