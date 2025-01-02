@@ -19,7 +19,7 @@ int main(int argc,char* argv[]){
     }
     serv_sock=socket(PF_INET,SOCK_DGRAM,0);
     if(serv_sock==-1){
-        error_handling("UDP socker creation error!");
+        error_handling("UDP socket creation error!");
     }
     memset(&serv_adr,0,sizeof(serv_adr));
     serv_adr.sin_family=AF_INET;
