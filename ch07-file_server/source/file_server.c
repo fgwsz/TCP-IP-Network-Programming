@@ -62,6 +62,7 @@ int main(int argc,char* argv[]){
     if(read(clnt_sd,buf,BUF_SIZE)==-1){
         error_handling("read() error!");
     }
+    printf("Message from client: %s \n",buf);
     fclose(fp);
     close(clnt_sd);
     close(serv_sd);
