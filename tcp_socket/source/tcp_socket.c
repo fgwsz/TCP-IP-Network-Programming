@@ -12,6 +12,7 @@ void println_socket_error(enum SocketError socket_error){
         case SOCKET_BIND_ERROR      :{printf("bind() error!\n"    );break;}
         case SOCKET_LISTEN_ERROR    :{printf("listen() error!\n"  );break;}
         case SOCKET_ACCEPT_ERROR    :{printf("accept() error!\n"  );break;}
+        case SOCKET_CONNECT_ERROR   :{printf("connect() error!\n" );break;}
         case SOCKET_PARSE_IP_ERROR  :{printf("parse ip error!\n"  );break;}
         case SOCKET_PARSE_PORT_ERROR:{printf("parse port error!\n");break;}
     }
