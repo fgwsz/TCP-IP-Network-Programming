@@ -22,7 +22,7 @@ int main(int argc,char* argv[]){
 
     //创建套接字
     hServSock=socket(PF_INET,SOCK_STREAM,0);
-    if(hServSock==INVAILD_SOCKET){
+    if(hServSock==INVALID_SOCKET){
         ErrorHandling("socket() error!");
     }
 
@@ -49,7 +49,7 @@ int main(int argc,char* argv[]){
 
     //受理客户端连接请求
     hClntSock=accept(hServSock,(SOCKADDR*)&clntAddr,&szClntAddr);
-    if(hClntSock==INVAILD_SOCKET){
+    if(hClntSock==INVALID_SOCKET){
         ErrorHandling("accept() error");
     }
 
@@ -65,6 +65,6 @@ int main(int argc,char* argv[]){
 }
 void ErrorHandling(char* message){
     fputs(message,stderr);
-    fputc('\n',stder);
+    fputc('\n',stderr);
     exit(1);
 }

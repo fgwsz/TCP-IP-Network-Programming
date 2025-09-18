@@ -22,7 +22,7 @@ int main(int argc,char* argv[]){
 
     //创建套接字
     hSocket=socket(PF_INET,SOCK_STREAM,0);
-    if(hSocket=INVAILD_SOCKET){
+    if(hSocket==INVALID_SOCKET){
         ErrorHandling("socket() error");
     }
 
@@ -58,4 +58,3 @@ void ErrorHandling(char* message){
     fputc('\n',stderr);
     exit(1);
 }
-
