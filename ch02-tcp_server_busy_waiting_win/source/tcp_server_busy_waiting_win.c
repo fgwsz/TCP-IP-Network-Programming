@@ -47,12 +47,12 @@ int main(int argc,char* argv[]){
     }
 
     char message[]="Hello World!";
-    int idx=0,writeLen=0,strLen=0;
+    int idx=0,sendLen=0,strLen=0;
     for(idx=0;idx<sizeof(message);++idx){
-        writeLen=send(hClntSock,&message[idx],1,0);
-        strLen+=writeLen;
+        sendLen=send(hClntSock,&message[idx],1,0);
+        strLen+=sendLen;
     }
-    printf("Function write call count: %d \n",strLen);
+    printf("Function send call count: %d \n",strLen);
 
     closesocket(hClntSock);
     closesocket(hServSock);

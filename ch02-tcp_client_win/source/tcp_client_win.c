@@ -45,7 +45,7 @@ int main(int argc,char* argv[]){
     }
 
     printf("Message from server: %s \n",message);
-    printf("Function read call count: %d \n",strlen);
+    printf("Function read call count: %d \n",strLen);
 
     closesocket(hSocket);
     WSACleanup();
