@@ -220,8 +220,9 @@ struct sockaddr_in{
             //addr.sin_addr.s_addr=inet_addr(ip);
         //方式二:
             //struct sockaddr_in addr;
-            //addr.sin_addr.s_addr=htol(INADDR_ANY);//使用特殊值进行初始化
+            //addr.sin_addr.s_addr=htonl(INADDR_ANY);//使用特殊值进行初始化
                 //这里INADDR_ANY直接展开为当前计算机的32位IP地址(主机字节序)
+                //INADDR_ANY:#include<netinet/in.h>
                 //如果当前计算机含有多个IP地址
                 //只要客户端和服务器端的端口号一致
                 //就可以建立连接进行通信
