@@ -21,7 +21,7 @@ int main(int argc,char* argv[]){
 
     size=sizeof(servAddr);
     // 调用WSAStringToAddress函数转换成结构体
-    WSAStingToAddress(
+    WSAStringToAddress(
         strAddr,AF_INET,NULL,(SOCKADDR*)&servAddr,&size
     );
 
